@@ -154,7 +154,10 @@
         }
 
         var toggle = function () {
+            // get previously defined function
+            var fnAfterTextType = options.afterTextType;
             options.afterTextType = function () {
+                fnAfterTextType();
                 setTimeout(backspace, options.toggleInterval);
             }
             write();
