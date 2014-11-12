@@ -24,7 +24,9 @@
 
         var getOptions = function (customOptions) {
             var options = $.extend({}, defaultOptions);
-            $.extend(options, customOptions);
+            if (typeof customOptions === 'object') {
+                $.extend(options, customOptions);
+            }
             return options;
         }
 
@@ -93,7 +95,6 @@
         return objToReturn;
     }
 
-
     
     
 
@@ -102,5 +103,6 @@
         var typeIt = new TypeText(this, userOptions);
         return typeIt.typeForward();
     }
+
 
 })(jQuery);
