@@ -36,23 +36,26 @@
             // TOGGLE
             toggleDelayForType: 1000,
             toggleDelayForBackspace: 1000,
-            toggleLoop: false
+            toggleLoop: false,
+            toggleCount: 0,
+            toggleMessageArray: ["You have forgotten to add 'toggleMessageArray'", "{ toggleMessageArray: ['pass', 'object', 'like', 'this'] }"]
         };
+
+        var getCursorObject = function (options) {
+            // add CSS class named 'typeTextCursor' for customize the cursor
+            var cursorObject = $("<span class='typeTextCursor'>" + (options.cursorShow == true ? options.cursorChar : "") + "</span>");
+            return cursorObject;
+        }
 
         var getOptions = function (customOptions) {
             var options = $.extend({}, defaultOptions);
             if (typeof customOptions === 'object') {
                 $.extend(options, customOptions);
             }
-            // user modification of this cursorHTML, will be overriden
+            // user modified value is overriden
             options.cursorObject = getCursorObject(options);
+            options.toggleCount = 0;
             return options;
-        }
-
-        var getCursorObject = function (options) {
-            // add CSS class named 'typeTextCursor' for customize the cursor
-            var cursorObject = $("<span class='typeTextCursor'>" + (options.cursorShow == true ? options.cursorChar : "") + "</span>");
-            return cursorObject;
         }
 
         objToReturn.getOptions = getOptions;
@@ -142,6 +145,14 @@
             return targetObj;
         }
 
+        // TOGGLE
+        var appendNewFunctionWithPreviousByProperty = function (propertyName, oldFunction, newFunction) {
+            options[propertyName] = function () {
+                oldFunction();
+                newFunction();
+            }
+            return options;
+        }
 
         var write = function () {
             options.beforeTextType();
@@ -159,20 +170,20 @@
         }
 
         var toggle = function () {
-            // execute previously defined function with toggle for BACKSPACE
-            var fnAfterTextType = options.afterTextType;
-            options.afterTextType = function () {
-                fnAfterTextType();
+            appendNewFunctionWithPreviousByProperty("beforeTextType", options.beforeTextType, function () {
+                var currentToggleMessageIndex = options.toggleCount % options.toggleMessageArray.length;
+                options.message = options.toggleMessageArray[currentToggleMessageIndex];
+            });
+            appendNewFunctionWithPreviousByProperty("afterTextType", options.afterTextType, function () {
                 setTimeout(backspace, options.toggleDelayForType);
-            }
+            });
 
             if (options.toggleLoop === true) {
-                // execute previously defined function with toggle for TYPE
-                var fnAfterTextBackspace = options.afterTextBackspace;
-                options.afterTextBackspace = function () {
-                    fnAfterTextBackspace();
+                // execute previously defined function 'afterTextBackspace' with toggle for TYPE
+                appendNewFunctionWithPreviousByProperty("afterTextBackspace", options.afterTextBackspace, function () {
+                    options.toggleCount++;
                     setTimeout(write, options.toggleDelayForBackspace);
-                }
+                });
             }
 
             write();
