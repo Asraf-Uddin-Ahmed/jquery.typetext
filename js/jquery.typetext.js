@@ -31,7 +31,7 @@
             backspaceSpeed: 100,
             beforeTextBackspace: function () { },
             afterTextBackspace: function () { },
-            onLetterBackspace: function () { },
+            onLetterBackspace: function () { }
         };
 
         var getOptions = function (customOptions) {
@@ -150,9 +150,20 @@
             return targetObj;
         }
 
+        var toggle = function () {
+            options.afterTextType = function () {
+                backspace();
+            }
+            write();
+            return targetObj;
+        }
 
+        /*
+        PUBLIC
+        */
         objToReturn.write = write;
         objToReturn.backspace = backspace;
+        objToReturn.toggle = toggle;
         return objToReturn;
     }
 
