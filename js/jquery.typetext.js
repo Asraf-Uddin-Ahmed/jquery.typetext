@@ -34,7 +34,8 @@
             onLetterBackspace: function () { },
 
             // TOGGLE
-            toggleInterval: 1000,
+            toggleDelayForType: 1000,
+            toggleDelayForBackspace: 1000,
             toggleLoop: false
         };
 
@@ -161,7 +162,7 @@
             var fnAfterTextType = options.afterTextType;
             options.afterTextType = function () {
                 fnAfterTextType();
-                setTimeout(backspace, options.toggleInterval);
+                setTimeout(backspace, options.toggleDelayForType);
             }
 
             if (options.toggleLoop === true) {
@@ -169,7 +170,7 @@
                 var fnAfterTextBackspace = options.afterTextBackspace;
                 options.afterTextBackspace = function () {
                     fnAfterTextBackspace();
-                    setTimeout(write, options.toggleInterval);
+                    setTimeout(write, options.toggleDelayForBackspace);
                 }
             }
 
