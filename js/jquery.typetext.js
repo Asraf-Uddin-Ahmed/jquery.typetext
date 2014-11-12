@@ -60,7 +60,7 @@
 
 
 
-    
+
 
     var TypeText = function (target, userOptions) {
         var objToReturn = {};
@@ -173,13 +173,15 @@
         return objToReturn;
     }
 
-    
-    
+
+
 
 
     $.fn.typeText = function (command, userOptions) {
-        var typeIt = new TypeText(this, userOptions);
-        return typeIt[command]();
+        return $.each(this, function () {
+            var typeIt = new TypeText(this, userOptions);
+            return typeIt[command]();
+        });
     }
 
 
