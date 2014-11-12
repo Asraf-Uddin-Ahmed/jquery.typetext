@@ -34,7 +34,8 @@
             onLetterBackspace: function () { },
 
             // TOGGLE
-            toggleInterval: 1000
+            toggleInterval: 1000,
+            toggleLoop: false
         };
 
         var getOptions = function (customOptions) {
@@ -83,7 +84,8 @@
 
         var setBaseTextOnMessage = function () {
             if (options.append === true) {
-                options.baseText = targetObj.text();
+                options.cursorObject.remove();
+                options.baseText = targetObj.text().trim();
             }
             return options;
         }
@@ -111,7 +113,8 @@
 
         // BACKSPACE
         var prepareOptionForBackspace = function () {
-            options.message = targetObj.text();
+            options.cursorObject.remove();
+            options.message = targetObj.text().trim();
             options.index = options.message.length;
             return options;
         }
@@ -154,12 +157,22 @@
         }
 
         var toggle = function () {
-            // get previously defined function
+            // execute previously defined function with toggle for BACKSPACE
             var fnAfterTextType = options.afterTextType;
             options.afterTextType = function () {
                 fnAfterTextType();
                 setTimeout(backspace, options.toggleInterval);
             }
+
+            if (options.toggleLoop === true) {
+                // execute previously defined function with toggle for TYPE
+                var fnAfterTextBackspace = options.afterTextBackspace;
+                options.afterTextBackspace = function () {
+                    fnAfterTextBackspace();
+                    setTimeout(write, options.toggleInterval);
+                }
+            }
+
             write();
             return targetObj;
         }
@@ -180,7 +193,7 @@
     $.fn.typeText = function (command, userOptions) {
         return $.each(this, function () {
             var typeIt = new TypeText(this, userOptions);
-            return typeIt[command]();
+            typeIt[command]();
         });
     }
 
