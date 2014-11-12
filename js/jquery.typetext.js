@@ -12,14 +12,14 @@
         var defaultOptions = {
             // COMMON
             message: "{ message: 'pass object like this' }",
-            baseText: "",
             index: 0,
-            append: false,
             newLine: false,
             cursorChar: "|",
             cursorShow: false,
 
             // TYPE
+            baseText: "",
+            append: false,
             cursorShowAfterTextType: false,
             typeSpeed: 100,
             beforeTextType: function () { },
@@ -115,6 +115,7 @@
         // BACKSPACE
         var prepareOptionForBackspace = function () {
             options.cursorObject.remove();
+            // in 'toggle' mode, this 'message' is used for 'write'
             options.message = targetObj.text().trim();
             options.index = options.message.length;
             return options;
@@ -132,7 +133,7 @@
             options.onLetterBackspace();
 
             options.index--;
-            targetObj.text(options.baseText + options.message.substring(0, options.index)).append(options.cursorObject);
+            targetObj.text(options.message.substring(0, options.index)).append(options.cursorObject);
 
             setTimeout(function () {
                 backspaceText(targetObj, options);
