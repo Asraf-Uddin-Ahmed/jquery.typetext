@@ -31,7 +31,10 @@
             backspaceSpeed: 100,
             beforeTextBackspace: function () { },
             afterTextBackspace: function () { },
-            onLetterBackspace: function () { }
+            onLetterBackspace: function () { },
+
+            // TOGGLE
+            toggleInterval: 1000
         };
 
         var getOptions = function (customOptions) {
@@ -152,7 +155,7 @@
 
         var toggle = function () {
             options.afterTextType = function () {
-                backspace();
+                setTimeout(backspace, options.toggleInterval);
             }
             write();
             return targetObj;
