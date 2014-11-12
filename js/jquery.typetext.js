@@ -179,7 +179,6 @@
             });
 
             if (options.toggleLoop === true) {
-                // execute previously defined function 'afterTextBackspace' with toggle for TYPE
                 appendNewFunctionWithPreviousByProperty("afterTextBackspace", options.afterTextBackspace, function () {
                     options.toggleCount++;
                     setTimeout(write, options.toggleDelayForBackspace);
