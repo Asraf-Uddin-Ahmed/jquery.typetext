@@ -11,10 +11,12 @@
 
         var defaultOptions = {
             message: "{ message: 'pass object like this' }",
-            typeSpeed: 100,
             index: 0,
             append: false,
             newLine: false,
+            cursorChar: "|",
+            cursorShow: true,
+            typeSpeed: 100,
             beforeTextType: function () { },
             afterTextType: function () { },
             onLetterType: function () { },
@@ -35,58 +37,70 @@
 
     
 
-    var TypeText = function (target, options) {
+    var TypeText = function (target, userOptions) {
+        var objToReturn = {};
+
+        var targetObj = $(target);
+        var options = OptionManager.getOptions(userOptions);
 
 
+        var showText = function () {
+            if (options.index >= options.message.length) {
+                options.afterTextType();
+                return targetObj;
+            }
 
-    };
+            options.onLetterType();
 
+            options.index++;
+            var cursor = (options.cursorShow == true ? options.cursorChar : "");
+            targetObj.text(options.message.substring(0, options.index) + cursor);
 
-    
-    var showText = function (targetObj, options) {
-        if (options.index >= options.message.length) {
-            options.afterTextType();
+            setTimeout(function () {
+                showText(targetObj, options);
+            }, options.typeSpeed);
+
             return targetObj;
         }
 
-        options.onLetterType();
-
-        options.index++;
-        targetObj.text(options.message.substring(0, options.index));
-
-        setTimeout(function () {
-            showText(targetObj, options);
-        }, options.typeSpeed);
-        return targetObj;
-    }
-
-    var setNewLineAttribute = function (targetObj, options) {
-        if (options.newLine === true) {
-            targetObj.css("white-space", "pre");
-        } else {
-            targetObj.css("white-space", "inherit");
+        var setNewLineAttribute = function () {
+            if (options.newLine === true) {
+                targetObj.css("white-space", "pre");
+            } else {
+                targetObj.css("white-space", "inherit");
+            }
+            return targetObj;
         }
-        return targetObj;
+
+        var setBaseTextOnMessage = function () {
+            if (options.append === true) {
+                options.message = targetObj.text() + options.message;
+                options.index = targetObj.text().length;
+            }
+            return targetObj;
+        }
+
+
+        var typeForward = function () {
+            options.beforeTextType();
+            setNewLineAttribute();
+            setBaseTextOnMessage();
+            showText();
+            return targetObj;
+        }
+
+        objToReturn.typeForward = typeForward;
+        return objToReturn;
     }
+
+
     
-    var setBaseTextOnMessage = function (targetObj, options) {
-        if (options.append === true) {
-            options.message = targetObj.text() + options.message;
-            options.index = targetObj.text().length;
-        }
-        return targetObj;
-    }
+    
 
 
-
-    $.fn.typeText = function (customOptions) {
-        var options = OptionManager.getOptions(customOptions);
-
-        options.beforeTextType();
-        setNewLineAttribute($(this), options);
-        setBaseTextOnMessage($(this), options);
-
-        return showText($(this), options);
+    $.fn.typeText = function (userOptions) {
+        var typeIt = new TypeText(this, userOptions);
+        return typeIt.typeForward();
     }
 
 })(jQuery);
