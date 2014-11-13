@@ -18,7 +18,7 @@
                 // COMMON
                 message: "Hello World!",
                 index: 0,
-                newLine: false,
+                newLine: true,
                 cursorChar: "|",
                 cursorShow: true,
 
@@ -43,7 +43,7 @@
                 toggleLoop: true,
                 toggleMessageArray: ["This is a jQuery TypeText plugin.", "It has 3 commands - type, backspace and toggle.", "You can customize it's functionality by changing options."]
             };
-            options.toggleMessageArray.push(JSON.stringify(options));
+            options.toggleMessageArray.push(JSON.stringify(options).replace(/,"/g, ',\n\t"'));
 
             $("#messageDiv").typeText("toggle", options);
 

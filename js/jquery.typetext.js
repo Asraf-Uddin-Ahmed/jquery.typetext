@@ -172,19 +172,23 @@
 
         var toggle = function () {
             appendNewFunctionWithPreviousByProperty("beforeTextType", options.beforeTextType, function () {
-                var currentToggleMessageIndex = options.toggleCount % options.toggleMessageArray.length;
-                options.message = options.toggleMessageArray[currentToggleMessageIndex];
+                options.message = options.toggleMessageArray[options.toggleCount];
             });
             appendNewFunctionWithPreviousByProperty("afterTextType", options.afterTextType, function () {
                 setTimeout(backspace, options.toggleDelayForType);
             });
 
-            if (options.toggleLoop === true) {
-                appendNewFunctionWithPreviousByProperty("afterTextBackspace", options.afterTextBackspace, function () {
-                    options.toggleCount++;
-                    setTimeout(write, options.toggleDelayForBackspace);
-                });
-            }
+            appendNewFunctionWithPreviousByProperty("afterTextBackspace", options.afterTextBackspace, function () {
+                options.toggleCount++;
+                // after showing whole array, check loop for showing from first.
+                if (options.toggleCount === options.toggleMessageArray.length) {
+                    if (options.toggleLoop === false) {
+                        return;
+                    }
+                    options.toggleCount = 0;
+                }
+                setTimeout(write, options.toggleDelayForBackspace);
+            });
 
             write();
             return targetObj;
