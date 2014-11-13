@@ -16,9 +16,10 @@
             newLine: false,
             cursorChar: "|",
             cursorShow: false,
+            cursorObject: {},                       // This will be overriden
 
             // TYPE
-            baseText: "",
+            baseText: "",                           // This will be overriden
             append: false,
             cursorShowAfterTextType: false,
             typeSpeed: 100,
@@ -36,7 +37,7 @@
             // TOGGLE
             toggleDelayForType: 1000,
             toggleDelayForBackspace: 1000,
-            toggleLoop: false,
+            toggleLoop: false,                      // This will be overriden
             toggleCount: 0,
             toggleMessageArray: ["You have forgotten to add 'toggleMessageArray'", "{ toggleMessageArray: ['pass', 'object', 'like', 'this'] }"]
         };

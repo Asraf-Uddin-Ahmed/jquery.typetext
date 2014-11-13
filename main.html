@@ -9,13 +9,46 @@
 
 <body>
 
-    <div id="msg0">
-    </div>
-    <div id="msg1">
-        hi, world
-    </div>
-    <div id="msg2">
-    </div>
+    <div id="messageDiv"></div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            var options = {
+                // COMMON
+                message: "Hello World!",
+                index: 0,
+                newLine: false,
+                cursorChar: "|",
+                cursorShow: true,
+
+                // TYPE
+                append: false,
+                cursorShowAfterTextType: false,
+                typeSpeed: 50,
+                beforeTextType: function () { },
+                afterTextType: function () { },
+                onLetterType: function () { },
+
+                // BACKSPACE
+                cursorShowAfterTextBackspace: false,
+                backspaceSpeed: 50,
+                beforeTextBackspace: function () { },
+                afterTextBackspace: function () { },
+                onLetterBackspace: function () { },
+
+                // TOGGLE
+                toggleDelayForType: 1000,
+                toggleDelayForBackspace: 1000,
+                toggleLoop: true,
+                toggleMessageArray: ["This is a jQuery TypeText plugin.", "It has 3 commands - type, backspace and toggle.", "You can customize it's functionality by changing options."]
+            };
+            options.toggleMessageArray.push(JSON.stringify(options));
+
+            $("#messageDiv").typeText("toggle", options);
+
+        });
+    </script>
 
 </body>
 
