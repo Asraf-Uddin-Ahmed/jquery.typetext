@@ -12,7 +12,7 @@
         var defaultOptions = {
             // COMMON
             message: "{ message: 'pass object like this' }",
-            index: 0,
+            messageIndex: 0,
             newLine: false,
             cursorChar: "|",
             cursorShow: false,
@@ -33,13 +33,12 @@
             beforeTextBackspace: function () { },
             afterTextBackspace: function () { },
             onLetterBackspace: function () { },
-            //highlightShowBeforeBackspace: false,
 
             // TOGGLE
             toggleDelayForType: 1000,
             toggleDelayForBackspace: 1000,
             toggleLoop: false,                      
-            toggleCount: 0,                         // This will be overriden
+            toggleArrayIndex: 0,                         // This will be overriden
             toggleMessageArray: ["You have forgotten to add 'toggleMessageArray'", "{ toggleMessageArray: ['pass', 'object', 'like', 'this'] }"],
             beforeToggle: function () { },
             afterToggle: function () { },
@@ -66,7 +65,7 @@
             }
             // user modified value is overriden
             options.cursorObject = getCursorObject(options);
-            options.toggleCount = 0;
+            options.toggleArrayIndex = 0;
             return options;
         }
 
@@ -93,7 +92,7 @@
             options.cursorObject.remove();
             // in 'toggle' mode, this 'message' is used for 'write'
             options.message = targetObj.text().trim();
-            options.index = options.message.length;
+            options.messageIndex = options.message.length;
             return options;
         }
 
@@ -116,7 +115,7 @@
         }
 
         var showText = function () {
-            if (options.index >= options.message.length) {
+            if (options.messageIndex >= options.message.length) {
                 options.afterTextType();
                 if (options.cursorShowAfterTextType === false) {
                     options.cursorObject.remove();
@@ -126,8 +125,8 @@
 
             options.onLetterType();
 
-            options.index++;
-            targetObj.text(options.baseText + options.message.substring(0, options.index)).append(options.cursorObject);
+            options.messageIndex++;
+            targetObj.text(options.baseText + options.message.substring(0, options.messageIndex)).append(options.cursorObject);
 
             setTimeout(function () {
                 showText();
@@ -138,7 +137,7 @@
 
         // BACKSPACE
         var backspaceText = function () {
-            if (options.index <= 0) {
+            if (options.messageIndex <= 0) {
                 options.afterTextBackspace();
                 if (options.cursorShowAfterTextBackspace === false) {
                     options.cursorObject.remove();
@@ -148,8 +147,8 @@
 
             options.onLetterBackspace();
 
-            options.index--;
-            targetObj.text(options.message.substring(0, options.index)).append(options.cursorObject);
+            options.messageIndex--;
+            targetObj.text(options.message.substring(0, options.messageIndex)).append(options.cursorObject);
 
             setTimeout(function () {
                 backspaceText();
@@ -169,7 +168,7 @@
 
         // HIGHLIGHT
         var highlightText = function (highlightSpanObj) {
-            if (options.index <= 0) {
+            if (options.messageIndex <= 0) {
                 options.afterTextHighlight();
                 if (options.cursorShowAfterTextHighlight === false) {
                     options.cursorObject.remove();
@@ -179,9 +178,9 @@
 
             options.onLetterHighlight();
 
-            options.index--;
-            targetObj.text(options.message.substring(0, options.index)).append(options.cursorObject).append(highlightSpanObj);
-            highlightSpanObj.text(options.message.substring(options.index));
+            options.messageIndex--;
+            targetObj.text(options.message.substring(0, options.messageIndex)).append(options.cursorObject).append(highlightSpanObj);
+            highlightSpanObj.text(options.message.substring(options.messageIndex));
 
             setTimeout(function () {
                 highlightText(highlightSpanObj);
@@ -209,21 +208,21 @@
             options.beforeToggle();
 
             appendNewFunctionWithPreviousByProperty("beforeTextType", options.beforeTextType, function () {
-                options.message = options.toggleMessageArray[options.toggleCount];
+                options.message = options.toggleMessageArray[options.toggleArrayIndex];
             });
             appendNewFunctionWithPreviousByProperty("afterTextType", options.afterTextType, function () {
                 setTimeout(backspace, options.toggleDelayForType);
             });
 
             appendNewFunctionWithPreviousByProperty("afterTextBackspace", options.afterTextBackspace, function () {
-                options.toggleCount++;
+                options.toggleArrayIndex++;
                 // after showing whole array, check loop for showing from first.
-                if (options.toggleCount === options.toggleMessageArray.length) {
+                if (options.toggleArrayIndex === options.toggleMessageArray.length) {
                     if (options.toggleLoop === false) {
                         options.afterToggle();
                         return;
                     }
-                    options.toggleCount = 0;
+                    options.toggleArrayIndex = 0;
                 }
                 setTimeout(write, options.toggleDelayForBackspace);
             });
