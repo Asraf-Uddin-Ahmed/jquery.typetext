@@ -41,7 +41,9 @@
             toggleLoop: false,                      
             toggleCount: 0,                         // This will be overriden
             toggleMessageArray: ["You have forgotten to add 'toggleMessageArray'", "{ toggleMessageArray: ['pass', 'object', 'like', 'this'] }"],
-
+            beforeToggle: function () { },
+            afterToggle: function () { },
+            
             // HIGHLIGHT
             cursorShowAfterTextHighlight: false,
             highlightSpeed: 100,
@@ -203,6 +205,8 @@
         }
 
         var toggle = function () {
+            options.beforeToggle();
+
             appendNewFunctionWithPreviousByProperty("beforeTextType", options.beforeTextType, function () {
                 options.message = options.toggleMessageArray[options.toggleCount];
             });
@@ -215,6 +219,7 @@
                 // after showing whole array, check loop for showing from first.
                 if (options.toggleCount === options.toggleMessageArray.length) {
                     if (options.toggleLoop === false) {
+                        options.afterToggle();
                         return;
                     }
                     options.toggleCount = 0;

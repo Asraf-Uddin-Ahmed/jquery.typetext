@@ -41,7 +41,17 @@
                 toggleDelayForType: 1000,
                 toggleDelayForBackspace: 1000,
                 toggleLoop: true,
-                toggleMessageArray: ["This is a jQuery TypeText plugin.", "It has 3 commands - type, backspace and toggle.", "You can customize it's functionality by changing options."]
+                toggleMessageArray: ["This is a jQuery TypeText plugin.", "It has 4 commands - type, backspace, highlight and toggle.", "You can customize it's functionality by changing options."],
+                beforeToggle: function () { console.log("beforeToggle"); },
+                afterToggle: function () { console.log("afterToggle"); },
+            
+                // HIGHLIGHT
+                cursorShowAfterTextHighlight: false,
+                highlightSpeed: 100,
+                beforeTextHighlight: function () { },
+                afterTextHighlight: function () { },
+                onLetterHighlight: function () { },
+                highlightColor: "activeborder"
             };
             options.toggleMessageArray.push(JSON.stringify(options).replace(/,"/g, ',\n\t"'));
 
