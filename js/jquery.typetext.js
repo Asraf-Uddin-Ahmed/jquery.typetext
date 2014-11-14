@@ -33,13 +33,22 @@
             beforeTextBackspace: function () { },
             afterTextBackspace: function () { },
             onLetterBackspace: function () { },
+            //highlightShowBeforeBackspace: false,
 
             // TOGGLE
             toggleDelayForType: 1000,
             toggleDelayForBackspace: 1000,
-            toggleLoop: false,                      // This will be overriden
-            toggleCount: 0,
-            toggleMessageArray: ["You have forgotten to add 'toggleMessageArray'", "{ toggleMessageArray: ['pass', 'object', 'like', 'this'] }"]
+            toggleLoop: false,                      
+            toggleCount: 0,                         // This will be overriden
+            toggleMessageArray: ["You have forgotten to add 'toggleMessageArray'", "{ toggleMessageArray: ['pass', 'object', 'like', 'this'] }"],
+
+            // HIGHLIGHT
+            cursorShowAfterTextHighlight: false,
+            highlightSpeed: 100,
+            beforeTextHighlight: function () { },
+            afterTextHighlight: function () { },
+            onLetterHighlight: function () { },
+            highlightColor: "activeborder"
         };
 
         var getCursorObject = function (options) {
@@ -110,14 +119,14 @@
             targetObj.text(options.baseText + options.message.substring(0, options.index)).append(options.cursorObject);
 
             setTimeout(function () {
-                showText(targetObj, options);
+                showText();
             }, options.typeSpeed);
 
             return targetObj;
         }
 
         // BACKSPACE
-        var prepareOptionForBackspace = function () {
+        var loadOptionWithSelectorText = function () {
             options.cursorObject.remove();
             // in 'toggle' mode, this 'message' is used for 'write'
             options.message = targetObj.text().trim();
@@ -140,7 +149,7 @@
             targetObj.text(options.message.substring(0, options.index)).append(options.cursorObject);
 
             setTimeout(function () {
-                backspaceText(targetObj, options);
+                backspaceText();
             }, options.backspaceSpeed);
 
             return targetObj;
@@ -155,6 +164,29 @@
             return options;
         }
 
+        // HIGHLIGHT
+        var highlightText = function (highlightSpanObj) {
+            if (options.index <= 0) {
+                options.afterTextHighlight();
+                if (options.cursorShowAfterTextHighlight === false) {
+                    options.cursorObject.remove();
+                }
+                return targetObj;
+            }
+
+            options.onLetterHighlight();
+
+            options.index--;
+            targetObj.text(options.message.substring(0, options.index)).append(options.cursorObject).append(highlightSpanObj);
+            highlightSpanObj.text(options.message.substring(options.index));
+
+            setTimeout(function () {
+                highlightText(highlightSpanObj);
+            }, options.highlightSpeed);
+
+            return targetObj;
+        }
+
         var write = function () {
             options.beforeTextType();
             setNewLineAttribute();
@@ -165,7 +197,7 @@
 
         var backspace = function () {
             options.beforeTextBackspace();
-            prepareOptionForBackspace();
+            loadOptionWithSelectorText();
             backspaceText();
             return targetObj;
         }
@@ -194,12 +226,22 @@
             return targetObj;
         }
 
+        var highlight = function () {
+            options.beforeTextBackspace();
+            loadOptionWithSelectorText();
+
+            var highlightSpanObj = $("<span>").css("background-color", options.highlightColor);
+            highlightText(highlightSpanObj);
+            return targetObj;
+        }
+
         /*
         PUBLIC
         */
         objToReturn.write = write;
         objToReturn.backspace = backspace;
         objToReturn.toggle = toggle;
+        objToReturn.highlight = highlight;
         return objToReturn;
     }
 
