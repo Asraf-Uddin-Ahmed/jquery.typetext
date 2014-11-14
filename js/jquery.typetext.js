@@ -36,12 +36,13 @@
 
             // TOGGLE
             toggleDelayForType: 1000,
-            toggleDelayForBackspace: 1000,
+            toggleDelayForBack: 1000,
             toggleLoop: false,                      
-            toggleArrayIndex: 0,                         // This will be overriden
+            toggleArrayIndex: 0,
             toggleMessageArray: ["You have forgotten to add 'toggleMessageArray'", "{ toggleMessageArray: ['pass', 'object', 'like', 'this'] }"],
             beforeToggle: function () { },
             afterToggle: function () { },
+            toggleHighlight: false,                      
             
             // HIGHLIGHT
             cursorShowAfterTextHighlight: false,
@@ -65,7 +66,7 @@
             }
             // user modified value is overriden
             options.cursorObject = getCursorObject(options);
-            options.toggleArrayIndex = 0;
+            options.toggleArrayIndex %= options.toggleMessageArray.length;  // adjust index for exceeded length
             return options;
         }
 
@@ -207,14 +208,22 @@
         var toggle = function () {
             options.beforeToggle();
 
+            // before text type, set message
             appendNewFunctionWithPreviousByProperty("beforeTextType", options.beforeTextType, function () {
                 options.message = options.toggleMessageArray[options.toggleArrayIndex];
             });
+
+            // after text type, set backspace or highlight
             appendNewFunctionWithPreviousByProperty("afterTextType", options.afterTextType, function () {
-                setTimeout(backspace, options.toggleDelayForType);
+                if (options.toggleHighlight === true) {
+                    setTimeout(highlight, options.toggleDelayForType);
+                } else {
+                    setTimeout(backspace, options.toggleDelayForType);
+                }
             });
 
-            appendNewFunctionWithPreviousByProperty("afterTextBackspace", options.afterTextBackspace, function () {
+            // after text backspace or highlight, set write
+            var fnSetWrite = function () {
                 options.toggleArrayIndex++;
                 // after showing whole array, check loop for showing from first.
                 if (options.toggleArrayIndex === options.toggleMessageArray.length) {
@@ -224,8 +233,16 @@
                     }
                     options.toggleArrayIndex = 0;
                 }
-                setTimeout(write, options.toggleDelayForBackspace);
-            });
+                setTimeout(write, options.toggleDelayForBack);
+            }
+            if (options.toggleHighlight === true) {
+                appendNewFunctionWithPreviousByProperty("afterTextHighlight", options.afterTextHighlight, function () {
+                    targetObj.text("");
+                    fnSetWrite();
+                });
+            } else {
+                appendNewFunctionWithPreviousByProperty("afterTextBackspace", options.afterTextBackspace, fnSetWrite);
+            }
 
             write();
             return targetObj;
