@@ -88,6 +88,15 @@
         var targetObj = $(target);
         var options = OptionManager.getOptions(userOptions);
 
+        // COMMON
+        var loadOptionWithSelectorText = function () {
+            options.cursorObject.remove();
+            // in 'toggle' mode, this 'message' is used for 'write'
+            options.message = targetObj.text().trim();
+            options.index = options.message.length;
+            return options;
+        }
+
         // WRITE
         var setNewLineAttribute = function () {
             if (options.newLine === true) {
@@ -128,14 +137,6 @@
         }
 
         // BACKSPACE
-        var loadOptionWithSelectorText = function () {
-            options.cursorObject.remove();
-            // in 'toggle' mode, this 'message' is used for 'write'
-            options.message = targetObj.text().trim();
-            options.index = options.message.length;
-            return options;
-        }
-
         var backspaceText = function () {
             if (options.index <= 0) {
                 options.afterTextBackspace();
