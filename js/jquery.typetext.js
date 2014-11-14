@@ -218,7 +218,7 @@
                 if (options.toggleHighlight === true) {
                     setTimeout(highlight, options.toggleDelayForType);
                 } else {
-                    setTimeout(backspace, options.toggleDelayForType);
+                    setTimeout(backspace, options.toggleDelayForBack);
                 }
             });
 
@@ -233,7 +233,7 @@
                     }
                     options.toggleArrayIndex = 0;
                 }
-                setTimeout(write, options.toggleDelayForBack);
+                setTimeout(write, options.toggleDelayForType);
             }
             if (options.toggleHighlight === true) {
                 appendNewFunctionWithPreviousByProperty("afterTextHighlight", options.afterTextHighlight, function () {
