@@ -16,10 +16,10 @@
             newLine: false,
             cursorChar: "|",
             cursorShow: false,
-            cursorObject: {},                       // This will be overriden
+            cursorObject: {},                       // This will be overridden
 
             // TYPE
-            baseText: "",                           // This will be overriden
+            baseText: "",                           // This will be overridden
             append: false,
             cursorShowAfterTextType: false,
             typeSpeed: 100,
@@ -64,7 +64,7 @@
             if (typeof customOptions === 'object') {
                 $.extend(options, customOptions);
             }
-            // user modified value is overriden
+            // user modified value is overridden
             options.cursorObject = getCursorObject(options);
             options.toggleArrayIndex %= options.toggleMessageArray.length;  // adjust index for exceeded length
             return options;
