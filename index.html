@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Jquery.typetext : jQuery Plugin for typing effect on text.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jquery.typetext</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext">View on GitHub</a>
+
+          <h1 id="project_title">Jquery.typetext</h1>
+          <h2 id="project_tagline">jQuery Plugin for typing effect on text.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
+<a id="typetext" class="anchor" href="#typetext" aria-hidden="true"><span class="octicon octicon-link"></span></a>typeText</h2>
+
+<p>It is a simple jQuery plugin that displays, removes or highlights a sequences of characters letter by letter similar to a typewriter.</p>
+
+<h2>
+<a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Use It</h2>
+
+<p>Include jQuery library on the web page</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">'</span>text/javascript<span class="pl-pds">'</span></span> src<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>js/jquery-2.1.1.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">'</span>text/javascript<span class="pl-pds">'</span></span> src<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>js/jquery.typetext.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
+
+<p>Add this js</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+     $(<span class="pl-st">function</span> () {
+         <span class="pl-c">// selector may be an ID, class, tag name or etc</span>
+         $(<span class="pl-s1"><span class="pl-pds">"</span>selector<span class="pl-pds">"</span></span>).typeText(<span class="pl-s1"><span class="pl-pds">"</span>toggle<span class="pl-pds">"</span></span>, options);
+     });
+<span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
+
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<p>You can change the effect by modifying <strong>options</strong>.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> options <span class="pl-k">=</span> {
+                <span class="pl-c">// COMMON</span>
+                message<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>,
+                messageIndex<span class="pl-k">:</span> <span class="pl-c1">0</span>,
+                newLine<span class="pl-k">:</span> <span class="pl-c1">true</span>,<span class="pl-s1"><span class="pl-pds">`</span><span class="pl-pds">`</span></span>
+                cursorChar<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>|<span class="pl-pds">"</span></span>,
+                cursorShow<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+
+                <span class="pl-c">// TYPE</span>
+                append<span class="pl-k">:</span> <span class="pl-c1">false</span>,
+                cursorShowAfterTextType<span class="pl-k">:</span> <span class="pl-c1">false</span>,
+                typeSpeed<span class="pl-k">:</span> <span class="pl-c1">50</span>,
+                <span class="pl-en">beforeTextType</span>: <span class="pl-st">function</span> () { },
+                <span class="pl-en">afterTextType</span>: <span class="pl-st">function</span> () { },
+                <span class="pl-en">onLetterType</span>: <span class="pl-st">function</span> () { },
+
+                <span class="pl-c">// BACKSPACE</span>
+                cursorShowAfterTextBackspace<span class="pl-k">:</span> <span class="pl-c1">false</span>,
+                backspaceSpeed<span class="pl-k">:</span> <span class="pl-c1">50</span>,
+                <span class="pl-en">beforeTextBackspace</span>: <span class="pl-st">function</span> () { },
+                <span class="pl-en">afterTextBackspace</span>: <span class="pl-st">function</span> () { },
+                <span class="pl-en">onLetterBackspace</span>: <span class="pl-st">function</span> () { },
+
+                <span class="pl-c">// TOGGLE</span>
+                toggleDelayForType<span class="pl-k">:</span> <span class="pl-c1">1000</span>,
+                toggleDelayForBack<span class="pl-k">:</span> <span class="pl-c1">2000</span>,
+                toggleLoop<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+                toggleArrayIndex<span class="pl-k">:</span> <span class="pl-c1">0</span>,
+                toggleMessageArray<span class="pl-k">:</span> [<span class="pl-s1"><span class="pl-pds">"</span>This is a jQuery TypeText plugin.<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>It has 4 commands - type, backspace, highlight and toggle.<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>You can customize it's functionality by changing options.<span class="pl-pds">"</span></span>],
+                <span class="pl-en">beforeToggle</span>: <span class="pl-st">function</span> () { <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>beforeToggle<span class="pl-pds">"</span></span>); },
+                <span class="pl-en">afterToggle</span>: <span class="pl-st">function</span> () { <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">"</span>afterToggle<span class="pl-pds">"</span></span>); },
+                toggleHighlight<span class="pl-k">:</span> <span class="pl-c1">false</span>,
+
+                <span class="pl-c">// HIGHLIGHT</span>
+                cursorShowAfterTextHighlight<span class="pl-k">:</span> <span class="pl-c1">false</span>,
+                highlightSpeed<span class="pl-k">:</span> <span class="pl-c1">100</span>,
+                <span class="pl-en">beforeTextHighlight</span>: <span class="pl-st">function</span> () { },
+                <span class="pl-en">afterTextHighlight</span>: <span class="pl-st">function</span> () { },
+                <span class="pl-en">onLetterHighlight</span>: <span class="pl-st">function</span> () { },
+                highlightColor<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>activeborder<span class="pl-pds">"</span></span>
+            };</pre></div>
+
+<h2>
+<a id="end" class="anchor" href="#end" aria-hidden="true"><span class="octicon octicon-link"></span></a>End</h2>
+
+<p>Thanks for checking this out. If you have any questions, please contact with this email: <a href="mailto:13ratul@gmail.com">13ratul@gmail.com</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jquery.typetext maintained by <a href="https://github.com/Asraf-Uddin-Ahmed">Asraf-Uddin-Ahmed</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
