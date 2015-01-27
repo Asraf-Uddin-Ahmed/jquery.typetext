@@ -5,6 +5,8 @@ jQuery Plugin for typing effect on text.
 
 ## typeText
 It is a simple jQuery plugin that displays, removes or highlights a sequences of characters letter by letter similar to a typewriter.
+## Demo
+Here is a [demo](http://asraf-uddin-ahmed.github.io/jquery.typetext/#demo).
 ## How to Use It
 Include jQuery library on the web page
 ```javascript
