@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Jquery.typetext : jQuery Plugin for typing effect on text.">
@@ -9,56 +9,68 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <title>Jquery.typetext</title>
-  </head>
+</head>
 
-  <body>
+<body>
 
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext">View on GitHub</a>
+            <a id="forkme_banner" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext">View on GitHub</a>
 
-          <h1 id="project_title">Jquery.typetext</h1>
-          <h2 id="project_tagline">jQuery Plugin for typing effect on text.</h2>
+            <h1 id="project_title">Jquery.typetext</h1>
+            <h2 id="project_tagline">jQuery Plugin for typing effect on text.</h2>
 
             <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext/tarball/master">Download this project as a tar.gz file</a>
+                <a class="zip_download_link" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext/zipball/master">Download this project as a .zip file</a>
+                <a class="tar_download_link" href="https://github.com/Asraf-Uddin-Ahmed/jquery.typetext/tarball/master">Download this project as a tar.gz file</a>
             </section>
         </header>
     </div>
 
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h2>
-<a id="typetext" class="anchor" href="#typetext" aria-hidden="true"><span class="octicon octicon-link"></span></a>typeText</h2>
+        <section id="main_content" class="inner">
+            <h2>
+                <a id="typetext" class="anchor" href="#typetext" aria-hidden="true"><span class="octicon octicon-link"></span></a>typeText</h2>
 
-<p>It is a simple jQuery plugin that displays, removes or highlights a sequences of characters letter by letter similar to a typewriter.</p>
+            <p>It is a simple jQuery plugin that displays, removes or highlights a sequences of characters letter by letter similar to a typewriter.</p>
 
-<h2>
-<a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Use It</h2>
+            <h2>
+                <a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
+            <div style="background-color: black; color: chartreuse; height: 50px;">
+                <div id="highlightMessage">This is a demo !!</div>
+                <div id="toggleMessage"></div>
+            </div>
 
-<p>Include jQuery library on the web page</p>
+            <h2>
+                <a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Use It</h2>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">'</span>text/javascript<span class="pl-pds">'</span></span> src<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>js/jquery-2.1.1.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
-<span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">'</span>text/javascript<span class="pl-pds">'</span></span> src<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>js/jquery.typetext.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
+            <p>Include jQuery library on the web page</p>
 
-<p>Add this js</p>
+            <div class="highlight highlight-javascript">
+                <pre><span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">'</span>text/javascript<span class="pl-pds">'</span></span> src<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>js/jquery-2.1.1.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">'</span>text/javascript<span class="pl-pds">'</span></span> src<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>js/jquery.typetext.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span></pre>
+            </div>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+            <p>Add this js</p>
+
+            <div class="highlight highlight-javascript">
+                <pre><span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
      $(<span class="pl-st">function</span> () {
          <span class="pl-c">// selector may be an ID, class, tag name or etc</span>
          $(<span class="pl-s1"><span class="pl-pds">"</span>selector<span class="pl-pds">"</span></span>).typeText(<span class="pl-s1"><span class="pl-pds">"</span>toggle<span class="pl-pds">"</span></span>, options);
      });
-<span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
+<span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre>
+            </div>
 
-<h2>
-<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
+            <h2>
+                <a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
 
-<p>You can change the effect by modifying <strong>options</strong>.</p>
+            <p>You can change the effect by modifying <strong>options</strong>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> options <span class="pl-k">=</span> {
+            <div class="highlight highlight-javascript">
+                <pre><span class="pl-s">var</span> options <span class="pl-k">=</span> {
                 <span class="pl-c">// COMMON</span>
                 message<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>,
                 messageIndex<span class="pl-k">:</span> <span class="pl-c1">0</span>,
@@ -98,24 +110,46 @@
                 <span class="pl-en">afterTextHighlight</span>: <span class="pl-st">function</span> () { },
                 <span class="pl-en">onLetterHighlight</span>: <span class="pl-st">function</span> () { },
                 highlightColor<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>activeborder<span class="pl-pds">"</span></span>
-            };</pre></div>
+            };</pre>
+            </div>
 
-<h2>
-<a id="end" class="anchor" href="#end" aria-hidden="true"><span class="octicon octicon-link"></span></a>End</h2>
+            <h2>
+                <a id="end" class="anchor" href="#end" aria-hidden="true"><span class="octicon octicon-link"></span></a>End</h2>
 
-<p>Thanks for checking this out. If you have any questions, please contact with this email: <a href="mailto:13ratul@gmail.com">13ratul@gmail.com</a></p>
-      </section>
+            <p>Thanks for checking this out. If you have any questions, please contact with this email: <a href="mailto:13ratul@gmail.com">13ratul@gmail.com</a></p>
+        </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Jquery.typetext maintained by <a href="https://github.com/Asraf-Uddin-Ahmed">Asraf-Uddin-Ahmed</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
+        <footer class="inner">
+            <p class="copyright">Jquery.typetext maintained by <a href="https://github.com/Asraf-Uddin-Ahmed">Asraf-Uddin-Ahmed</a></p>
+            <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+        </footer>
     </div>
 
-    
 
-  </body>
+
+    <script src="javascripts/jquery-2.1.1.min.js"></script>
+    <script type='text/javascript' src="javascripts/jquery.typetext.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            setInterval(function () {
+                var newColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+                $("#highlightMessage").typeText("highlight", {
+                    highlightColor: newColor
+                });
+            }, 3000);
+            
+            $("#toggleMessage").typeText("toggle", {
+                toggleLoop: true,
+                toggleMessageArray: ["This is a jQuery TypeText plugin.", "It has 4 commands - type, backspace, highlight and toggle.", "You can customize it's functionality by changing options."],
+            });
+
+        });
+    </script>
+
+
+</body>
 </html>
