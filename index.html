@@ -34,7 +34,7 @@
             <h2>
                 <a id="typetext" class="anchor" href="#typetext" aria-hidden="true"><span class="octicon octicon-link"></span></a>typeText</h2>
 
-            <p>It is a simple jQuery plugin that displays, removes or highlights a sequences of characters letter by letter similar to a typewriter.</p>
+            <p id="introMessage">It is a simple jQuery plugin that displays, removes or highlights a sequences of characters letter by letter similar to a typewriter.</p>
 
             <h2>
                 <a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
@@ -62,6 +62,17 @@
          $(<span class="pl-s1"><span class="pl-pds">"</span>selector<span class="pl-pds">"</span></span>).typeText(<span class="pl-s1"><span class="pl-pds">"</span>toggle<span class="pl-pds">"</span></span>, options);
      });
 <span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre>
+            </div>
+
+            <h2>
+                <a id="commands" class="anchor" href="#commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Commands</h2>
+
+            <div class="highlight highlight-javascript">
+                <pre>
+write
+backspace
+toggle
+highlight</pre>
             </div>
 
             <h2>
@@ -135,16 +146,22 @@
     <script type="text/javascript">
         $(function () {
 
-            setInterval(function () {
+            var highlightWithRandomColor = function () {
                 var newColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
                 $("#highlightMessage").typeText("highlight", {
-                    highlightColor: newColor
+                    highlightColor: newColor,
+                    afterTextHighlight: highlightWithRandomColor
                 });
-            }, 3000);
-            
+            }
+            highlightWithRandomColor();
+
+            $("#introMessage").typeText("write", {
+                message: $("#introMessage").text()
+            });
+
             $("#toggleMessage").typeText("toggle", {
                 toggleLoop: true,
-                toggleMessageArray: ["This is a jQuery TypeText plugin.", "It has 4 commands - type, backspace, highlight and toggle.", "You can customize it's functionality by changing options."],
+                toggleMessageArray: ["This is a jQuery TypeText plugin.", "It has 4 commands - write, backspace, highlight and toggle.", "You can customize it's functionality by changing options."],
             });
 
         });
